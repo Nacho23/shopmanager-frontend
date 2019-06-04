@@ -12,10 +12,10 @@ import React, { Component } from 'react';
 import { Dropdown } from 'reactstrap';
 import PropTypes from 'prop-types';
 
-var propTypes = {
+var propTypes = _extends({
   children: PropTypes.node,
   direction: PropTypes.string
-};
+}, Dropdown.propTypes);
 
 var defaultProps = {
   direction: 'down'

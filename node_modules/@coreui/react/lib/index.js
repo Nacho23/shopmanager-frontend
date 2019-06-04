@@ -1,7 +1,7 @@
 'use strict';
 
 exports.__esModule = true;
-exports.AppSwitch = exports.AppSidebarToggler = exports.AppSidebarNav = exports.AppSidebarMinimizer = exports.AppSidebarHeader = exports.AppSidebarForm = exports.AppSidebarFooter = exports.AppSidebar = exports.AppNavbarBrand = exports.AppHeaderDropdown = exports.AppHeader = exports.AppFooter = exports.AppBreadcrumb = exports.AppAsideToggler = exports.AppAside = undefined;
+exports.AppSwitch = exports.AppSidebarToggler = exports.AppSidebarNav2 = exports.AppSidebarNav = exports.AppSidebarMinimizer = exports.AppSidebarHeader = exports.AppSidebarForm = exports.AppSidebarFooter = exports.AppSidebar = exports.AppNavbarBrand = exports.AppHeaderDropdown = exports.AppHeader = exports.AppFooter = exports.AppBreadcrumb2 = exports.AppBreadcrumb = exports.AppAsideToggler = exports.AppAside = undefined;
 
 var _Aside = require('./Aside');
 
@@ -14,6 +14,10 @@ var _AsideToggler2 = _interopRequireDefault(_AsideToggler);
 var _Breadcrumb = require('./Breadcrumb');
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
+
+var _Breadcrumb3 = require('./Breadcrumb2');
+
+var _Breadcrumb4 = _interopRequireDefault(_Breadcrumb3);
 
 var _Footer = require('./Footer');
 
@@ -55,6 +59,10 @@ var _SidebarNav = require('./SidebarNav');
 
 var _SidebarNav2 = _interopRequireDefault(_SidebarNav);
 
+var _SidebarNav3 = require('./SidebarNav2');
+
+var _SidebarNav4 = _interopRequireDefault(_SidebarNav3);
+
 var _SidebarToggler = require('./SidebarToggler');
 
 var _SidebarToggler2 = _interopRequireDefault(_SidebarToggler);
@@ -68,6 +76,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.AppAside = _Aside2.default;
 exports.AppAsideToggler = _AsideToggler2.default;
 exports.AppBreadcrumb = _Breadcrumb2.default;
+exports.AppBreadcrumb2 = _Breadcrumb4.default;
 exports.AppFooter = _Footer2.default;
 exports.AppHeader = _Header2.default;
 exports.AppHeaderDropdown = _HeaderDropdown2.default;
@@ -78,6 +87,6 @@ exports.AppSidebarForm = _SidebarForm2.default;
 exports.AppSidebarHeader = _SidebarHeader2.default;
 exports.AppSidebarMinimizer = _SidebarMinimizer2.default;
 exports.AppSidebarNav = _SidebarNav2.default;
+exports.AppSidebarNav2 = _SidebarNav4.default;
 exports.AppSidebarToggler = _SidebarToggler2.default;
 exports.AppSwitch = _Switch2.default;
-// export AppLayout from './Shared';
