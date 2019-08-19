@@ -40,18 +40,6 @@ export default class SaleRegistryListComponent extends Component {
                             <td>Juan Soto</td>
                         </tbody>
                     </Table>
-                    {this.props.pagination
-                        ?
-                        <PaginationComponent
-                            currentPage={this.props.pagination.current_page}
-                            pages={this.props.pagination.last_page}
-                            hasNextPage={this.props.pagination.next_page_url ? true : false}
-                            hasPrevPage={this.props.pagination.prev_page_url ? true : false}
-                            onNextPage={this.nextPage}
-                            onPrevPage={this.prevPage}
-                            onSelectPage={this.selectPage} />
-                        :
-                        null}
                 </CardBody>
             </Card>
         );

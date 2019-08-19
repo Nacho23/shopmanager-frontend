@@ -7,8 +7,10 @@ import { routerReducer } from 'react-router-redux';
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
   auth: require('./LoginRedux').reducer,
-  //service: require('./ServiceRedux').reducer,
+  service: require('./ServiceRedux').reducer,
   customer: require('./CustomerRedux').reducer,
+  provider: require('./ProviderRedux').reducer,
+  sale: require('./SaleRedux').reducer,
   routing: routerReducer,
 })
 

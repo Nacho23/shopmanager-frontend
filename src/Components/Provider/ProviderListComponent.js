@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
     Card, Table,
-    CardBody, Collapse,
+    CardBody, Alert,
     Button, Row, Col,
     FormGroup, Label, Input,
     InputGroup, InputGroupAddon,
@@ -10,7 +10,19 @@ import {
 import util from '../../Util/util';
 
 export default class ProviderListComponent extends Component {
-
+    delete = (id) => {
+        this.props.onDelete(id)
+    }
+    getProvider = (id) => {
+        this.props.onGetProvider(id)
+    }
+    onSearchValue = (value) => {
+        if (value !== '') {
+            this.props.onSearch({search: value});
+        } else {
+            this.props.onSearch({});
+        }
+    }
     render() {
         return (
             <Card>
@@ -18,12 +30,8 @@ export default class ProviderListComponent extends Component {
                     <Button color="success" className="btn-sm mr-1 mb-1 float-right" onClick={this.props.onOpenModal}><i className="fa fa-plus-circle"></i> Agregar</Button>
                     <FormGroup>
                         <InputGroup className="col-md-6">
-                            <Input type="text" placeholder="Buscar proveedor" className='form-control form-control-sm' />
-                            <InputGroupAddon addonType="append">
-                                <Button type="button" className="secondary btn-sm" >
-                                    Buscar
-                                    </Button>
-                            </InputGroupAddon>
+                            <Input type="text" placeholder="Buscar proveedor" className='form-control form-control-sm'
+                                onChange={(e) => this.onSearchValue(e.target.value)}/>
                         </InputGroup>
                     </FormGroup>
                     <Table responsive>
@@ -38,21 +46,34 @@ export default class ProviderListComponent extends Component {
                             <th></th>
                             <th></th>
                         </thead>
+                        {this.props.providers && this.props.providers.length > 0 ?
+                            <tbody>
+                                {this.props.providers.map((provider, index) => {
+                                    return <tr key={provider.id}>
+                                        <td>{provider.name}</td>
+                                        <td>{provider.sales_representative}</td>
+                                        <td>{provider.email}</td>
+                                        <td>{provider.phone_mobile}</td>
+                                        <td>{provider.address_street}</td>
+                                        <td>{provider.address_town}</td>
+                                        <td>{provider.profit_rate}</td>
+                                        <td>
+                                            <Button color="warning" className="btn-sm" onClick={() => this.getProvider(provider.id)}><i className="fa fa-edit"></i></Button>
+                                        </td>
+                                        <td>
+                                            <Button color="danger" className="btn-sm" onClick={() => this.delete(provider.id)}><i className="fa fa-close"></i></Button>
+                                        </td>
+                                    </tr>
+                                })}
+                            </tbody>
+                        :
                         <tbody>
-                            <td>Coca cola</td>
-                            <td>Juan Perez</td>
-                            <td>jperez@cocacola.cl</td>
-                            <td>965667281</td>
-                            <td>Baquedano S/N</td>
-                            <td>Puerto montt</td>
-                            <td>30%</td>
-                            <td style={{paddingRight: '0px'}}>
-                                <Button color="warning" className="btn-sm float-right"><i className="fa fa-edit"></i></Button>
+                            <td colSpan='9'>
+                                <Alert color="info">
+                                    No existen registros
+                                </Alert>
                             </td>
-                            <td>
-                                <Button color="danger" className="btn-sm"><i className="fa fa-close"></i></Button>
-                            </td>
-                        </tbody>
+                        </tbody>}
                     </Table>
                 </CardBody>
             </Card>

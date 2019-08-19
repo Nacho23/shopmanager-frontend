@@ -9,7 +9,7 @@ import ApiResponseError from '../Services/ApiResponseError';
  */
 export function * getCustomers(api, action) {
     try {
-        const response = yield call(api.getCustomerCollection);
+        const response = yield call(api.getCustomerCollection, action.query);
         if (!response.ok) {
             throw new ApiResponseError(response);
         }

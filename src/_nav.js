@@ -20,7 +20,7 @@ export default {
     },
     {
       name: 'Productos',
-      url: '/product',
+      url: '/service',
       icon: 'fa fa-tags'
     },
     {

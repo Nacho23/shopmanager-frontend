@@ -37,6 +37,7 @@ export const INITIAL_STATE = Immutable({
     error: null,
     customers: [],
     customer: null,
+    customerFinded: null,
     customerCreated: null,
     customerCustomer: null,
     customerToEdit: null,
@@ -57,6 +58,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             customer: null,
             customers: [],
             customerToEdit: null,
+            customerFinded: null,
         };
     },
 
@@ -68,6 +70,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             error: null,
             customer: null,
             customerToEdit: null,
+            customerFinded: true,
         };
     },
 
@@ -79,6 +82,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             customer: null,
             customers: [],
             customerToEdit: null,
+            customerFinded: null,
         };
     },
 

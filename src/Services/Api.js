@@ -45,116 +45,99 @@ const create = (baseURL) => { // home
 
     // TODO - Add error parser to transform into an specific error api
     /** Conection Login API */
-    /**
-     *
-     * @param string email
-     * @param string password
-     */
     const doLogin = (email, password) => {
         return api.post('/access-token', { email, password });
     };
-
-    /**
-     *
-     * @param string token
-     */
     const logout = (token) => {
         return api.delete(`/access-token/${token}`);
     };
-
-    /**
-     *
-     * @param string token
-     */
     const checkAuth = (token) => {
         return api.get(`/access-token/${token}`);
     };
 
     /** Conection User API */
-    /**
-     * Creates an user
-     * @param object user
-     * @returns Promise
-     */
     const postUserCollection = (user) => {
         return api.post('/user', user);
     };
-
-    /**
-     * Update an user
-     * @param int    uuid  User id
-     * @param Object user    User object
-     * @returns Promise
-     */
     const patchUserResource = (uuid, user) => {
         return api.patch(`/user/${uuid}`, user);
     };
-
-    /**
-     * Delete an user
-     * @param int    uuid  User id
-     * @returns Promise
-     */
     const deleteUserResource = (uuid) => {
         return api.delete(`/user/${uuid}`);
     };
-
-    /**
-     * Get users
-     * @returns Promise
-     */
     const getUserCollection = (query) => {
         return api.get(`/user`, query);
     };
-
-    /**
-     * Get an user
-     * @param int    id  User id
-     * @returns Promise
-     */
     const getUserResource = (id) => {
         return api.get(`/user/${id}`);
     };
 
-    /** Conection Business Center API */
-    /**
-     *
-     */
-    const getCustomerCollection = () => {
-        return api.get(`/customer`);
+    /** Conection Customer API */
+    const getCustomerCollection = (query) => {
+        return api.get(`/customer`, query);
     }
-
-    /**
-     *
-     * @param object customer
-     */
     const postCustomerCollection = (customer) => {
         return api.post(`/customer`, customer);
     }
-
-    /**
-     *
-     * @param string customer_id
-     */
     const getCustomerResource = (customer_id) => {
         return api.get(`/customer/${customer_id}`);
     }
-
-    /**
-     *
-     * @param string customer_id
-     * @param object customer
-     */
     const patchCustomerResource = (customer_id, customer) => {
         return api.patch(`/customer/${customer_id}`, customer);
     }
-
-    /**
-     *
-     * @param string customer_id
-     */
     const deleteCustomerResource = (customer_id) => {
         return api.delete(`/customer/${customer_id}`);
+    }
+
+    /** Conection Providers API */
+    const getProviderCollection = (query) => {
+        return api.get(`/provider`, query);
+    }
+    const postProviderCollection = (provider) => {
+        return api.post(`/provider`, provider);
+    }
+    const getProviderResource = (provider_id) => {
+        return api.get(`/provider/${provider_id}`);
+    }
+    const patchProviderResource = (provider_id, provider) => {
+        return api.patch(`/provider/${provider_id}`, provider);
+    }
+    const deleteProviderResource = (provider_id) => {
+        return api.delete(`/provider/${provider_id}`);
+    }
+
+    /** Conection Services API */
+    const getServiceCollection = (query) => {
+        return api.get(`/service`, query);
+    }
+    const postServiceCollection = (service) => {
+        return api.post(`/service`, service);
+    }
+    const getServiceResource = (service_id) => {
+        return api.get(`/service/${service_id}`);
+    }
+    const patchServiceResource = (service_id, service) => {
+        return api.patch(`/service/${service_id}`, service);
+    }
+    const deleteServiceResource = (service_id) => {
+        return api.delete(`/service/${service_id}`);
+    }
+
+    /** Conection Sales API */
+    const getSaleCollection = (query) => {
+        return api.get(`/sale`, query);
+    }
+    const postSaleCollection = (sale) => {
+        return api.post(`/sale`, sale);
+    }
+    const getSaleResource = (sale_id) => {
+        return api.get(`/sale/${sale_id}`);
+    }
+    const patchSaleResource = (sale_id, sale) => {
+        return api.patch(`/sale/${sale_id}`, sale);
+    }
+    const deleteSaleResource = (sale_id) => {
+        return api.delete(`/sale/${sale_id}`);
     }
 
     return {
@@ -173,7 +156,25 @@ const create = (baseURL) => { // home
         postCustomerCollection,
         getCustomerResource,
         patchCustomerResource,
-        deleteCustomerResource
+        deleteCustomerResource,
+        // Provider calls
+        getProviderCollection,
+        postProviderCollection,
+        getProviderResource,
+        patchProviderResource,
+        deleteProviderResource,
+        // Service calls
+        getServiceCollection,
+        postServiceCollection,
+        getServiceResource,
+        patchServiceResource,
+        deleteServiceResource,
+        // Sale calls
+        getSaleCollection,
+        postSaleCollection,
+        getSaleResource,
+        patchSaleResource,
+        deleteSaleResource,
     };
 };
 

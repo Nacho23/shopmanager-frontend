@@ -21,8 +21,8 @@ const CustomerContainer = Loadable({
   loading: Loading,
 });
 
-const ProductContainer = Loadable({
-  loader: () => import('./Containers/Product/ProductContainer.js'),
+const ServiceContainer = Loadable({
+  loader: () => import('./Containers/Service/ServiceContainer.js'),
   loading: Loading,
 });
 
@@ -42,7 +42,7 @@ const routes = [
   { path: '/dashboard', name: 'Inicio', component: DashboardContainer },
   { path: '/provider', name: 'Proveedores', component: ProviderContainer },
   { path: '/customer', name: 'Clientes', component: CustomerContainer },
-  { path: '/product', name: 'Productos', component: ProductContainer },
+  { path: '/service', name: 'Productos', component: ServiceContainer },
   { path: '/sale/make_sale', name: 'Ventas', component: SaleContainer },
   { path: '/sale/sale_registry', name: 'Ventas', component: SaleRegistryContainer },
 ];

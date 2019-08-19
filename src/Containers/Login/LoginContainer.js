@@ -9,10 +9,18 @@ class LoginContainer extends Component {
     state = {
         email: '',
         password: '',
+        titleButton: 'Ingresar',
     }
     componentDidUpdate = (prevProps) => {
         if (!prevProps.auth.authSuccess && this.props.auth.authSuccess) {
+            this.setState({
+                titleButton: 'Ingresar',
+            })
             history.push('/dashboard');
+        } else if (!prevProps.auth.error && this.props.error) {
+            this.setState({
+                titleButton: 'Ingresar',
+            })
         }
     }
     changeValue = (field, value) => {
@@ -21,6 +29,7 @@ class LoginContainer extends Component {
         this.setState(state);
     }
     login = () => {
+        this.setState({ titleButton: 'Ingresando...' });
         this.props.actions.auth.login(this.state.email, this.state.password);
     }
     forgotPassword = () => {
@@ -61,7 +70,7 @@ class LoginContainer extends Component {
                         {this.renderError()}
                         <Row>
                             <Col xs="6">
-                                <Button color="primary" className="px-4" onClick={this.login}>Ingresar</Button>
+                                <Button color="primary" className="px-4" onClick={this.login}>{this.state.titleButton}</Button>
                             </Col>
                             <Col xs="6" className="text-right">
                                 <Button color="link" className="px-0" onClick={this.forgotPassword}>¿Olvidaste la contraseña?</Button>
