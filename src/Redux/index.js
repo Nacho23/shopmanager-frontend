@@ -11,6 +11,8 @@ export const reducers = combineReducers({
   customer: require('./CustomerRedux').reducer,
   provider: require('./ProviderRedux').reducer,
   sale: require('./SaleRedux').reducer,
+  payment: require('./PaymentRedux').reducer,
+  report: require('./ReportRedux').reducer,
   routing: routerReducer,
 })
 

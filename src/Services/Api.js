@@ -140,6 +140,16 @@ const create = (baseURL) => { // home
         return api.delete(`/sale/${sale_id}`);
     }
 
+    /** Contection Payments API */
+    const getPaymentCollection = (query) => {
+        return api.get(`/payment`, query);
+    }
+
+    /** Report calls */
+    const generateReport = (report, data) => {
+        return api.get(`/report/${report}`, data)
+    }
+
     return {
         // Auth endpoint calls
         doLogin,
@@ -175,6 +185,10 @@ const create = (baseURL) => { // home
         getSaleResource,
         patchSaleResource,
         deleteSaleResource,
+        // Payment calls
+        getPaymentCollection,
+        //Report calls
+        generateReport,
     };
 };
 

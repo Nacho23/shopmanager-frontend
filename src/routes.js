@@ -36,6 +36,16 @@ const SaleRegistryContainer = Loadable({
   loading: Loading,
 });
 
+const PaymentRegistryContainer = Loadable({
+  loader: () => import('./Containers/Sale/PaymentRegistryContainer.js'),
+  loading: Loading,
+});
+
+const ReportContainer = Loadable({
+  loader: () => import('./Containers/Report/ReportContainer.js'),
+  loading: Loading,
+});
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -45,6 +55,8 @@ const routes = [
   { path: '/service', name: 'Productos', component: ServiceContainer },
   { path: '/sale/make_sale', name: 'Ventas', component: SaleContainer },
   { path: '/sale/sale_registry', name: 'Ventas', component: SaleRegistryContainer },
+  { path: '/sale/sale_payment', name: 'Pagos', component: PaymentRegistryContainer },
+  { path: '/report', name: 'Informes', component: ReportContainer },
 ];
 
 export default routes;

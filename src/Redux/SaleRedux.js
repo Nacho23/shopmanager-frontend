@@ -6,7 +6,7 @@ import Immutable from 'seamless-immutable';
 
 const { Types, Creators } = createActions({
     fetchSales: ['query'],
-    fetchSalesSuccess: ['sales'],
+    fetchSalesSuccess: ['sales', 'pagination'],
     fetchSalesFailure: ['error'],
 
     createSale: ['sale'],
@@ -35,12 +35,13 @@ export default Creators
 export const INITIAL_STATE = Immutable({
     loading: false,
     error: null,
-    sales: [],
+    sales: null,
     sale: null,
     saleCreated: null,
     saleToEdit: null,
     saleUpdated: null,
     saleDeleted: null,
+    paginate: null,
 })
 
 const resetState = () => INITIAL_STATE;
@@ -54,7 +55,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             loading: true,
             error: null,
             sale: null,
-            sales: [],
+            sales: null,
             saleToEdit: null,
         };
     },
@@ -67,6 +68,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             error: null,
             sale: null,
             saleToEdit: null,
+            paginate: action.pagination,
         };
     },
 
@@ -76,7 +78,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             loading: false,
             error: action.error,
             sale: null,
-            sales: [],
+            sales: null,
             saleToEdit: null,
         };
     },

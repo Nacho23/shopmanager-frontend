@@ -11,7 +11,7 @@ export function * getSales(api, action) {
 
         const data = response.data.data;
 
-        yield put(SaleActions.fetchSalesSuccess(data.sales));
+        yield put(SaleActions.fetchSalesSuccess(data.sales, data.pagination));
     } catch (e) {
         yield put(SaleActions.fetchSalesFailure(e));
     }

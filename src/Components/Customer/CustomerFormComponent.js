@@ -18,6 +18,7 @@ export default class CustomerFormComponent extends Component {
         email: this.props.customerToEdit ? this.props.customerToEdit.email : '',
         phone_mobile: this.props.customerToEdit ? this.props.customerToEdit.phone_mobile : '',
         address: this.props.customerToEdit ? this.props.customerToEdit.address : '',
+        debt: this.props.customerToEdit ? this.props.customerToEdit.debt : 0,
     }
     onChangeValue = (field, value) => {
         let state = this.state;
@@ -34,6 +35,7 @@ export default class CustomerFormComponent extends Component {
                 email: this.state.email,
                 phone_mobile: this.state.phone_mobile,
                 address: this.state.address,
+                debt: this.state.debt,
             })
         } else {
             this.props.onSave({
@@ -44,6 +46,7 @@ export default class CustomerFormComponent extends Component {
                 email: this.state.email,
                 phone_mobile: this.state.phone_mobile,
                 address: this.state.address,
+                debt: this.state.debt,
             })
         }
     }

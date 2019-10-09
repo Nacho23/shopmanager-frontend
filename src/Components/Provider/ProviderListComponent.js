@@ -24,6 +24,7 @@ export default class ProviderListComponent extends Component {
         }
     }
     render() {
+        console.log('PROPPS', this.props);
         return (
             <Card>
                 <CardBody>
@@ -46,7 +47,8 @@ export default class ProviderListComponent extends Component {
                             <th></th>
                             <th></th>
                         </thead>
-                        {this.props.providers && this.props.providers.length > 0 ?
+                        {this.props.providers ?
+                             this.props.providers.length > 0 ?
                             <tbody>
                                 {this.props.providers.map((provider, index) => {
                                     return <tr key={provider.id}>
@@ -66,14 +68,13 @@ export default class ProviderListComponent extends Component {
                                     </tr>
                                 })}
                             </tbody>
-                        :
-                        <tbody>
-                            <td colSpan='9'>
-                                <Alert color="info">
-                                    No existen registros
-                                </Alert>
-                            </td>
-                        </tbody>}
+                        : <td colSpan='9'>
+                            <Alert color="info">
+                                No existen registros
+                            </Alert>
+                        </td>
+                        : 'Cargando...' }<tbody>
+                    </tbody>
                     </Table>
                 </CardBody>
             </Card>

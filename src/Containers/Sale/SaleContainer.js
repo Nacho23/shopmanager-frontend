@@ -19,7 +19,7 @@ class SaleContainer extends Component {
         console.log('props', this.props);
     }
     searchService = (code) => {
-        this.props.actions.service.fetchServices({code: code});
+        this.props.actions.service.fetchService(code);
     }
     searchCustomer = (customer) => {
         this.props.actions.customer.fetchCustomers({rut: customer});
@@ -39,6 +39,7 @@ class SaleContainer extends Component {
                     onSearchService={this.searchService}
                     onSearchCustomer={this.searchCustomer}
                     serviceFinded={this.props.service.serviceFinded}
+                    serviceToEdit={this.props.service.serviceToEdit}
                     serviceToBuy={this.props.service.services}
                     customerFinded={this.props.customer.customerFinded}
                     customerCreated={this.props.customer.customerCreated}
@@ -46,6 +47,7 @@ class SaleContainer extends Component {
                     customers={this.props.customer.customers}
                     customerError={this.props.customer.error}
                     saleCreated={this.props.sale.saleCreated}
+                    error={this.props.service.error}
                 />
             </div>
         )

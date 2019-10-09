@@ -17,8 +17,8 @@ export default class ServiceListComponent extends Component {
     delete = (id) => {
         this.props.onDelete(id)
     }
-    getService = (id) => {
-        this.props.onGetService(id)
+    getService = (code) => {
+        this.props.onGetService(code)
     }
     onSearchValue = (value) => {
         if (value !== '') {
@@ -48,7 +48,8 @@ export default class ServiceListComponent extends Component {
                             <th></th>
                             <th></th>
                         </thead>
-                        {this.props.services && this.props.services.length > 0 ?
+                        {this.props.services ?
+                            this.props.services.length > 0 ?
                             <tbody>
                                 {this.props.services.map((service, index) => {
                                     return <tr key={service.id}>
@@ -58,7 +59,7 @@ export default class ServiceListComponent extends Component {
                                     <td>{util.formatMoney(service.price)}</td>
                                     <td>{service.amount}</td>
                                     <td>
-                                        <Button color="warning" className="btn-sm" onClick={() => this.getService(service.id)}><i className="fa fa-edit"></i></Button>
+                                        <Button color="warning" className="btn-sm" onClick={() => this.getService(service.code)}><i className="fa fa-edit"></i></Button>
                                     </td>
                                     <td>
                                         <Button color="danger" className="btn-sm" onClick={() => this.delete(service.id)}><i className="fa fa-close"></i></Button>
@@ -66,14 +67,13 @@ export default class ServiceListComponent extends Component {
                                     </tr>
                                 })}
                             </tbody>
-                        :
-                        <tbody>
-                            <td colSpan='7'>
-                                <Alert color="info">
-                                    No existen registros
-                                </Alert>
-                            </td>
-                        </tbody>}
+                        : <td colSpan='9'>
+                            <Alert color="info">
+                                No existen registros
+                            </Alert>
+                        </td>
+                        : 'Cargando...' }<tbody>
+                    </tbody>
                     </Table>
                 </CardBody>
             </Card>

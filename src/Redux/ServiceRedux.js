@@ -35,7 +35,7 @@ export default Creators
 export const INITIAL_STATE = Immutable({
     loading: false,
     error: null,
-    services: [],
+    services: null,
     service: null,
     serviceCreated: null,
     serviceFinded: null,
@@ -56,7 +56,7 @@ export const reducer = createReducer(INITIAL_STATE, {
             loading: true,
             error: null,
             service: null,
-            services: [],
+            services: null,
             serviceToEdit: null,
             serviceFinded: null,
         };

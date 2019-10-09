@@ -23,6 +23,7 @@ export default class ApiResponseError extends Error{
                 switch(response.data.code){
                     case 6: message = 'Error, no tiene autorización.'; break;
                     case 8: message = 'Error, token expirado.'; break;
+                    case 26: message = 'Error, No existe el código ingresado.'; break;
                 }
             break;
             case 404:

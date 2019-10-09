@@ -43,7 +43,17 @@ export default {
           url: '/sale/sale_registry',
           icon: 'fa fa-list',
         },
+        {
+          name: 'Registro de pagos',
+          url: '/sale/sale_payment',
+          icon: 'fa fa-list',
+        },
       ],
+    },
+    {
+      name: 'Informes',
+      url: '/report',
+      icon: 'fa fa-file-o'
     },
     {
       name: 'Ajustes',

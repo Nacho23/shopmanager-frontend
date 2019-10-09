@@ -23,17 +23,23 @@ export default class SalesComponent extends Component {
         descriptionSelected: '',
         confirmPayment: false,
         success: false,
+        maxUnities: 0,
+        exceedsMax: false,
     }
     componentDidUpdate = (prevProps) => {
-        if (!prevProps.serviceFinded && this.props.serviceFinded) {
-            if (this.props.serviceToBuy.length == 0) {
-                this.setState({ serviceNotFind: true })
-            } else if (this.props.serviceToBuy.length > 0) {
-                this.parseService(this.props.serviceToBuy[0]);
+        if (!prevProps.serviceToEdit && this.props.serviceToEdit) {
+            if (this.props.serviceToEdit.amount == 0) {
                 this.setState({
-                    unitPrice: this.props.serviceToBuy[0].price,
-                    descriptionSelected: this.props.serviceToBuy[0].description,
-                    codeSelected: this.props.serviceToBuy[0].code,
+                    exceedsMax: true,
+                    maxUnities: 0,
+                })
+            } else {
+                this.parseService(this.props.serviceToEdit);
+                this.setState({
+                    unitPrice: this.props.serviceToEdit.price,
+                    descriptionSelected: this.props.serviceToEdit.description,
+                    codeSelected: this.props.serviceToEdit.code,
+                    exceedsMax: false,
                 })
             }
         } else if (!prevProps.saleCreated && this.props.saleCreated) {
@@ -47,6 +53,10 @@ export default class SalesComponent extends Component {
                     success: false,
                 })
             }, 3000);
+        } else if (!prevProps.error && this.props.error) {
+            this.setState({
+                exceedsMax: false,
+            })
         }
     }
     onChangeValue = (field, value) => {
@@ -54,31 +64,33 @@ export default class SalesComponent extends Component {
         state[field] = value;
         this.setState(state);
     }
-    parseService = () => {
+    parseService = (service) => {
         let arrayServicesToBuy = this.state.arrayServicesToBuy;
         if (this.state.arrayServicesToBuy.length == 0) {
             let serviceObj = {};
-            serviceObj.code = this.props.serviceToBuy[0].code;
-            serviceObj.description = this.props.serviceToBuy[0].description;
-            serviceObj.price = this.props.serviceToBuy[0].price;
+            serviceObj.id = service.id;
+            serviceObj.code = service.code;
+            serviceObj.description = service.description;
+            serviceObj.price = service.price;
             serviceObj.amountToBuy = 1;
-            serviceObj.amount = this.props.serviceToBuy[0].amount;
+            serviceObj.amount = service.amount;
             arrayServicesToBuy.push(serviceObj);
         } else {
             let isRepeat = false;
             for (let i = 0; i < this.state.arrayServicesToBuy.length; i++) {
-                if (this.state.arrayServicesToBuy[i].code == this.props.serviceToBuy[0].code) {
+                if (this.state.arrayServicesToBuy[i].code == service.code) {
                     arrayServicesToBuy[i].amountToBuy ++;
                     isRepeat = true;
                 }
             }
             if (!isRepeat) {
                 let serviceObj = {};
-                serviceObj.code = this.props.serviceToBuy[0].code;
-                serviceObj.description = this.props.serviceToBuy[0].description;
-                serviceObj.price = this.props.serviceToBuy[0].price;
+                serviceObj.id = service.id;
+                serviceObj.code = service.code;
+                serviceObj.description = service.description;
+                serviceObj.price = service.price;
                 serviceObj.amountToBuy = 1;
-                serviceObj.amount = this.props.serviceToBuy[0].amount;
+                serviceObj.amount = service.amount;
                 arrayServicesToBuy.push(serviceObj);
             }
         }
@@ -148,12 +160,22 @@ export default class SalesComponent extends Component {
             total: 0,
             unitPrice: 0,
             search: '',
+            exceedsMax: false,
         })
     }
     toggleConfirmPayment = () => {
         this.setState({
             confirmPayment: !this.state.confirmPayment
         })
+    }
+    verifyAmount = (element, value) => {
+        this.setState({ exceedsMax: false, })
+        if (value > element.amount) {
+            this.setState({
+                exceedsMax: true,
+                maxUnities: element.amount,
+            })
+        }
     }
     confirmPay = () => {
         this.toggleConfirmPayment();
@@ -170,6 +192,20 @@ export default class SalesComponent extends Component {
     saveClient = (data) => {
         this.props.onSaveClient(data);
     }
+    renderErrorMax = () => {
+        if (this.state.exceedsMax) {
+            return <Alert color="danger">
+                La cantidad excede el máximo de lo existente el inventario. (máx: {this.state.maxUnities} unidades)
+            </Alert>
+        }
+    }
+    renderError = () => {
+        if (this.props.error) {
+            return <Alert color="danger">
+                {this.props.error.message}
+            </Alert>
+        }
+    }
     renderSuccessMessage = () => {
         if (this.state.success) {
             return <Alert color="success">
@@ -184,10 +220,8 @@ export default class SalesComponent extends Component {
                 <td>{element.code}</td>
                 <td>{element.description}</td>
                 <td>
-                    {/*<i class="fa fa-chevron-up" style={{cursor: 'pointer'}} onClick={() => this.amountService(index, 'sum')}></i>&nbsp;*/}
                     <Input type="number" className="form-control form-control-sm" onChange={(e) => this.amountService(index, e.target.value)}
-                        value={element.amountToBuy} placeholder='0'></Input>
-                    {/*&nbsp;<i class="fa fa-chevron-down" style={{ cursor: 'pointer' }} onClick={() => this.amountService(index, 'rest')}></i>*/}
+                        value={element.amountToBuy} placeholder='0' onBlur={(e) => this.verifyAmount(element, e.target.value)}></Input>
                 </td>
                 <td>{util.formatMoney(element.amountToBuy * element.price)}</td>
                 <td>
@@ -202,6 +236,8 @@ export default class SalesComponent extends Component {
             <div>
                 <Row>
                     <Col md="9">
+                        {this.renderError()}
+                        {this.renderErrorMax()}
                         {this.renderSuccessMessage()}
                         <Card>
                             <CardBody>
@@ -217,11 +253,13 @@ export default class SalesComponent extends Component {
                                 </FormGroup>
                                 <Table responsive size="sm" bordered>
                                     <thead>
-                                        <th>Código</th>
-                                        <th>Descripción</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio</th>
-                                        <th></th>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Descripción</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th></th>
+                                        </tr>
                                     </thead>
                                     {this.state.arrayServicesToBuy.length > 0 ?
                                         <tbody>

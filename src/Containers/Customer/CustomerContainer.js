@@ -10,10 +10,12 @@ import history from '../../Services/history';
 import AuthActions from '../../Redux/CustomerRedux';
 import CustomerListComponent from '../../Components/Customer/CustomerListComponent';
 import CustomerFormComponent from '../../Components/Customer/CustomerFormComponent';
+import CustomerPayDebtComponent from '../../Components/Customer/CustomerPayDebtComponent';
 
 class CustomerContainer extends Component {
     state = {
         modalCreateCustomer: false,
+        modalPayDebt: false,
         titleModal: 'Agregar cliente',
         customerToEdit: null,
     }
@@ -28,6 +30,7 @@ class CustomerContainer extends Component {
                 this.props.actions.customer.fetchCustomers();
                 this.setState({
                     modalCreateCustomer: false,
+                    modalPayDebt: false,
                 })
         } else if (!prevProps.customer.customerToEdit && this.props.customer.customerToEdit) {
             this.setState({
@@ -42,6 +45,11 @@ class CustomerContainer extends Component {
             modalCreateCustomer: !this.state.modalCreateCustomer,
         });
     }
+    togglePayDebt = () => {
+        this.setState({
+            modalPayDebt: !this.state.modalPayDebt,
+        });
+    }
     getCustomer = (id) => {
         this.props.actions.customer.fetchCustomer(id);
     }
@@ -49,6 +57,12 @@ class CustomerContainer extends Component {
         this.setState({
             customerToEdit: null,
             modalCreateCustomer: true,
+        })
+    }
+    openModalToPay = (customer) => {
+        this.setState({
+            customerToPay: customer,
+            modalPayDebt: true,
         })
     }
     save = (customer) => {
@@ -73,8 +87,18 @@ class CustomerContainer extends Component {
                         />
                     </ModalBody>
                 </Modal>
+                <Modal isOpen={this.state.modalPayDebt} className={'modal-success'} toggle={this.togglePayDebt}>
+                    <ModalHeader toggle={this.togglePayDebt}>{'Pagar cuenta'}</ModalHeader>
+                    <ModalBody>
+                        <CustomerPayDebtComponent
+                            onPay={this.update}
+                            customerToPay={this.state.customerToPay}
+                        />
+                    </ModalBody>
+                </Modal>
                 <CustomerListComponent
                     onOpenModal={this.create}
+                    onOpenModalToPay={this.openModalToPay}
                     onDelete={this.delete}
                     customers={this.props.customer.customers}
                     onGetCustomer={this.getCustomer} />
