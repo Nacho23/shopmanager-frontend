@@ -139,6 +139,9 @@ const create = (baseURL) => { // home
     const deleteSaleResource = (sale_id) => {
         return api.delete(`/sale/${sale_id}`);
     }
+    const getDetailsSaleResource = (year) => {
+        return api.get(`/sale-details/${year}`);
+    }
 
     /** Contection Payments API */
     const getPaymentCollection = (query) => {
@@ -179,6 +182,7 @@ const create = (baseURL) => { // home
         getServiceResource,
         patchServiceResource,
         deleteServiceResource,
+        getDetailsSaleResource,
         // Sale calls
         getSaleCollection,
         postSaleCollection,

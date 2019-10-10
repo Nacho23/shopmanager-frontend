@@ -26,6 +26,7 @@ class ServiceContainer extends Component {
         if (!prevProps.service.serviceCreated && this.props.service.serviceCreated ||
             !prevProps.service.serviceUpdated && this.props.service.serviceUpdated ||
             !prevProps.service.serviceDeleted && this.props.service.serviceDeleted) {
+                this.props.actions.service.fetchServicesLow({lowStock: true, list: true})
                 this.props.actions.service.fetchServices();
                 this.setState({
                     modalCreateService: false,

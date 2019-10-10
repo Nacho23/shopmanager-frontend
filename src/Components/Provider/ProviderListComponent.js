@@ -24,7 +24,6 @@ export default class ProviderListComponent extends Component {
         }
     }
     render() {
-        console.log('PROPPS', this.props);
         return (
             <Card>
                 <CardBody>
@@ -37,15 +36,17 @@ export default class ProviderListComponent extends Component {
                     </FormGroup>
                     <Table responsive>
                         <thead>
-                            <th>Nombre empresa</th>
-                            <th>Representante</th>
-                            <th>Correo electrónico</th>
-                            <th>Teléfono</th>
-                            <th>Dirección</th>
-                            <th>Ciudad</th>
-                            <th>% ganancia</th>
-                            <th></th>
-                            <th></th>
+                            <tr>
+                                <th>Nombre empresa</th>
+                                <th>Representante</th>
+                                <th>Correo electrónico</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Ciudad</th>
+                                <th>% ganancia</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         {this.props.providers ?
                              this.props.providers.length > 0 ?

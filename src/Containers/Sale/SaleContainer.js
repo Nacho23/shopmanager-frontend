@@ -15,9 +15,6 @@ import SaleActions from '../../Redux/SaleRedux';
 import SalesComponent from '../../Components/Sale/SalesComponent';
 
 class SaleContainer extends Component {
-    componentDidUpdate = (prevProps) => {
-        console.log('props', this.props);
-    }
     searchService = (code) => {
         this.props.actions.service.fetchService(code);
     }

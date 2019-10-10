@@ -47,6 +47,20 @@ export function * getSale(api, action) {
     }
 }
 
+export function * fetchDetailsSale(api, action) {
+    try {
+        const response = yield call(api.getDetailsSaleResource, action.year);
+        if (!response.ok) {
+            throw new ApiResponseError(response);
+        }
+        const data = response.data.data;
+
+        yield put(SaleActions.fetchDetailsSaleSuccess(data));
+    } catch (e) {
+        yield put(SaleActions.fetchDetailsSaleFailure(e));
+    }
+}
+
 export function * updateSale(api, action) {
     try {
         const response = yield call(api.patchSaleResource, action.sale_id, action.sale);
@@ -82,4 +96,5 @@ export function * watchSale(api) {
     yield takeLatest(SaleTypes.FETCH_SALE, getSale, api);
     yield takeLatest(SaleTypes.UPDATE_SALE, updateSale, api);
     yield takeLatest(SaleTypes.DELETE_SALE, deleteSale, api);
+    yield takeLatest(SaleTypes.FETCH_DETAILS_SALE, fetchDetailsSale, api);
 }

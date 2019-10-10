@@ -9,6 +9,10 @@ const { Types, Creators } = createActions({
     fetchServicesSuccess: ['services'],
     fetchServicesFailure: ['error'],
 
+    fetchServicesLow: ['query'],
+    fetchServicesLowSuccess: ['services'],
+    fetchServicesLowFailure: ['error'],
+
     createService: ['service'],
     createServiceSuccess: ['service'],
     createServiceFailure: ['error'],
@@ -36,6 +40,7 @@ export const INITIAL_STATE = Immutable({
     loading: false,
     error: null,
     services: null,
+    servicesLow: null,
     service: null,
     serviceCreated: null,
     serviceFinded: null,
@@ -81,6 +86,43 @@ export const reducer = createReducer(INITIAL_STATE, {
             error: action.error,
             service: null,
             services: [],
+            serviceToEdit: null,
+            serviceFinded: null,
+        };
+    },
+
+    // Fetch services low actions
+    [Types.FETCH_SERVICES_LOW]: (state) => {
+        return {
+            ...state,
+            loading: true,
+            error: null,
+            service: null,
+            servicesLow: null,
+            serviceToEdit: null,
+            serviceFinded: null,
+        };
+    },
+
+    [Types.FETCH_SERVICES_LOW_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            servicesLow: action.services,
+            loading: false,
+            error: null,
+            service: null,
+            serviceToEdit: null,
+            serviceFinded: true,
+        };
+    },
+
+    [Types.FETCH_SERVICES_LOW_FAILURE]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            error: action.error,
+            service: null,
+            servicesLow: [],
             serviceToEdit: null,
             serviceFinded: null,
         };

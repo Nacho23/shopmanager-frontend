@@ -24,6 +24,10 @@ const { Types, Creators } = createActions({
     deleteSale: ['sale_id'],
     deleteSaleSuccess: [],
     deleteSaleFailure: ['error'],
+
+    fetchDetailsSale: ['year'],
+    fetchDetailsSaleSuccess: ['details'],
+    fetchDetailsSaleFailure: ['error'],
 });
 
 
@@ -41,6 +45,7 @@ export const INITIAL_STATE = Immutable({
     saleToEdit: null,
     saleUpdated: null,
     saleDeleted: null,
+    saleDetails: null,
     paginate: null,
 })
 
@@ -203,6 +208,34 @@ export const reducer = createReducer(INITIAL_STATE, {
             ...state,
             loading: false,
             saleDeleted: null,
+            error: action.error,
+        };
+    },
+
+    // Get details sales
+    [Types.FETCH_DETAILS_SALE]: (state) => {
+        return {
+            ...state,
+            loading: true,
+            saleDetails: null,
+            error: null,
+        };
+    },
+
+    [Types.FETCH_DETAILS_SALE_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            saleDetails: action.details,
+            error: null,
+        };
+    },
+
+    [Types.FETCH_DETAILS_SALE_FAILURE]: (state, action) => {
+        return {
+            ...state,
+            loading: false,
+            saleDetails: null,
             error: action.error,
         };
     },

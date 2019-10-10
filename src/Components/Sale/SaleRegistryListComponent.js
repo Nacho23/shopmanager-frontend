@@ -11,9 +11,6 @@ import PaginationComponent from '../Common/PaginationComponent';
 import util from '../../Util/util';
 
 export default class SaleRegistryListComponent extends Component {
-    componentDidUpdate = (prevProps) => {
-        console.log('PROPS', this.props)
-    }
     nextPage = () => {
         this.props.onNextPage();
     }

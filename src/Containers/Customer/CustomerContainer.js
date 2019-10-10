@@ -20,7 +20,6 @@ class CustomerContainer extends Component {
         customerToEdit: null,
     }
     componentDidMount = () => {
-        //console.log('', this.props)
         this.props.actions.customer.fetchCustomers();
     }
     componentDidUpdate = (prevProps) => {

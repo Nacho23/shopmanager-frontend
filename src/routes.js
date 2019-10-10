@@ -48,14 +48,14 @@ const ReportContainer = Loadable({
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
-  { path: '/', exact: true, name: 'Home' },
-  { path: '/dashboard', name: 'Inicio', component: DashboardContainer },
+  { path: '/', exact: true, name: 'Inicio' },
+  { path: '/dashboard', name: '', component: DashboardContainer },
   { path: '/provider', name: 'Proveedores', component: ProviderContainer },
   { path: '/customer', name: 'Clientes', component: CustomerContainer },
   { path: '/service', name: 'Productos', component: ServiceContainer },
   { path: '/sale/make_sale', name: 'Ventas', component: SaleContainer },
-  { path: '/sale/sale_registry', name: 'Ventas', component: SaleRegistryContainer },
-  { path: '/sale/sale_payment', name: 'Pagos', component: PaymentRegistryContainer },
+  { path: '/sale/sale_registry', name: 'Registro de ventas', component: SaleRegistryContainer },
+  { path: '/sale/sale_payment', name: 'Registro de pagos', component: PaymentRegistryContainer },
   { path: '/report', name: 'Informes', component: ReportContainer },
 ];
 

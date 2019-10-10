@@ -18,12 +18,32 @@ import {
 import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import AuthActions from '../../Redux/LoginRedux';
+import ServiceActions from '../../Redux/ServiceRedux';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
+  state = {
+  }
+  componentWillMount = () => {
+    this.props.actions.auth.checkAuth();
+  }
+  componentDidMount = () => {
+    this.props.actions.service.fetchServicesLow({lowStock: true, list: true})
+  }
+  componentDidUpdate = (prevProps) => {
+    if (!prevProps.auth.logoutSuccess && this.props.auth.logoutSuccess) {
+      this.props.history.push('/login');
+    }
+    if (this.props.auth.tokenValidated === false) {
+        this.props.history.push('/login');
+    }
+  }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -31,13 +51,16 @@ class DefaultLayout extends Component {
     e.preventDefault()
     this.props.history.push('/login')
   }
-
   render() {
+    console.log('PORPS', this.props);
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+            <DefaultHeader
+              onLogout={e=>this.signOut(e)}
+              lowServices={this.props.service.servicesLow}
+            />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -83,4 +106,16 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  service: state.service,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: {
+    auth: bindActionCreators(AuthActions, dispatch),
+    service: bindActionCreators(ServiceActions, dispatch),
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout);

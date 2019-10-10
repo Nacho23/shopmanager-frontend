@@ -3,6 +3,7 @@ import { DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem, UncontrolledD
 import PropTypes from 'prop-types';
 
 import { AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import DefaultHeaderDropdown  from './DefaultHeaderDropwdown'
 import logo from '../../assets/img/brand/logo.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
 
@@ -28,11 +29,15 @@ class DefaultHeader extends Component {
         <AppSidebarToggler className="d-md-down-none" display="lg" />
 
         <Nav className="ml-auto" navbar>
+          <DefaultHeaderDropdown notif
+            lowServices={this.props.lowServices}
+          />
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
               <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right style={{ right: 'auto' }}>
+              <DropdownItem disabled>{localStorage.getItem('first_name') + ' ' + localStorage.getItem('last_name')} </DropdownItem>
               <DropdownItem><i className="fa fa-user"></i> Perfil</DropdownItem>
               <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Cerrar sesión</DropdownItem>
             </DropdownMenu>

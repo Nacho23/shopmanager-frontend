@@ -22,6 +22,21 @@ export function * getServices(api, action) {
     }
 }
 
+export function * getServicesLow(api, action) {
+    try {
+        const response = yield call(api.getServiceCollection, action.query);
+        if (!response.ok) {
+            throw new ApiResponseError(response);
+        }
+
+        const data = response.data.data;
+
+        yield put(ServiceActions.fetchServicesLowSuccess(data.services));
+    } catch (e) {
+        yield put(ServiceActions.fetchServicesLowFailure(e));
+    }
+}
+
 export function * createService(api, action) {
     try {
         const response = yield call(api.postServiceCollection, action.service);
@@ -83,6 +98,7 @@ export function * deleteService(api, action) {
 
 export function * watchService(api) {
     yield takeLatest(ServiceTypes.FETCH_SERVICES, getServices, api);
+    yield takeLatest(ServiceTypes.FETCH_SERVICES_LOW, getServicesLow, api);
     yield takeLatest(ServiceTypes.CREATE_SERVICE, createService, api);
     yield takeLatest(ServiceTypes.FETCH_SERVICE, getService, api);
     yield takeLatest(ServiceTypes.UPDATE_SERVICE, updateService, api);

@@ -11,12 +11,19 @@ import util from '../../Util/util';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PaymentActions from '../../Redux/PaymentRedux';
+import SaleActions from '../../Redux/SaleRedux';
 
 class PaymentRegistryContainer extends Component {
     state = {
         filters: {},
     }
     componentDidMount = () => {
+        let date = new Date();
+        this.setState({
+            currentYear: date.getFullYear()
+        }, () => {
+            this.props.actions.sale.fetchDetailsSale(this.state.currentYear);
+        })
         this.props.actions.payment.fetchPayments();
     }
     nextPage = () => {
@@ -45,16 +52,17 @@ class PaymentRegistryContainer extends Component {
                             <Col md="12">
                                 <Card className="text-white bg-info">
                                     <CardBody>
-                                        <div>N° Ventas 2019</div>
-                                        <div className="text-value">523</div>
+                                        <div>N° Ventas {this.state.currentYear}</div>
+                                        <div className="text-value">{this.props.sale.saleDetails ? this.props.sale.saleDetails.payments.length : 0}</div>
                                     </CardBody>
                                 </Card>
                             </Col>
                             <Col md="12">
                                 <Card className="text-white bg-warning">
                                     <CardBody>
-                                        <div>Ganancias 2019</div>
-                                        <div className="text-value">{util.formatMoney(467990)}</div>
+                                        <div>Ganancias {this.state.currentYear}</div>
+                                        <div className="text-value">{util.formatMoney(this.props.sale.saleDetails ?
+                                            this.props.sale.saleDetails.payments.reduce((a, b) => parseInt(a) + parseInt(b), 0) : 0)}</div>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -77,11 +85,13 @@ class PaymentRegistryContainer extends Component {
 
 const mapStateToProps = (state) => ({
     payment: state.payment,
+    sale: state.sale,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     actions: {
         payment: bindActionCreators(PaymentActions, dispatch),
+        sale: bindActionCreators(SaleActions, dispatch),
     },
 });
 

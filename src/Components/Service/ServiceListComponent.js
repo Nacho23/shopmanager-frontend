@@ -40,13 +40,15 @@ export default class ServiceListComponent extends Component {
                     </FormGroup>
                     <Table>
                         <thead>
-                            <th>Código</th>
-                            <th>Descripción</th>
-                            <th>Proveedor</th>
-                            <th>Precio unitario</th>
-                            <th>Stock</th>
-                            <th></th>
-                            <th></th>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Proveedor</th>
+                                <th>Precio unitario</th>
+                                <th>Stock</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
                         </thead>
                         {this.props.services ?
                             this.props.services.length > 0 ?

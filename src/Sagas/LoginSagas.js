@@ -16,7 +16,8 @@ export function * login(api, action) {
         // Add Token on LocalStorage
         localStorage.setItem('access_token', JSON.stringify(response.data.access_token));
         localStorage.setItem('user_uuid', response.data.user.uuid);
-        //localStorage.setItem('user_rol', response.data.role)
+        localStorage.setItem('first_name', response.data.user.first_name)
+        localStorage.setItem('last_name', response.data.user.last_name)
 
         yield put(AuthActions.loginSuccess(response.data));
     } catch (e) {
